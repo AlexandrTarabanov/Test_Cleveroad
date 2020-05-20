@@ -1,26 +1,29 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter, Route} from "react-router-dom";
+import Catalog from "./components/Catalog";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
+import {AuthProvider} from "./Auth";
+import PrivateRoute from "./PrivateRoute";
+import {EditProduct} from "./components/EditProduct/EditProduct";
+import Add from "./components/Add";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <AuthProvider>
+            <BrowserRouter>
+                <div className="App">
+                    <PrivateRoute exact path="/" component={Catalog}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/login" component={SignUp}/>
+                    <Route exact path="/add" component={Add}/>
+                    <Route exact path="/edit" component={EditProduct}/>
+
+                </div>
+            </BrowserRouter>
+        </AuthProvider>
+    );
 }
 
 export default App;
